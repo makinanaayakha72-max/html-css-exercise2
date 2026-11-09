@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get in Touch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Contact Us</h1>
+            <p>Send us a message or pick an available appointment time below thank you for  your time.</p>
+        </header>
+
+
+
+        <section class="form-section">
+            <h2>Send a Message</h2>
+            <form id="contact-form" action="#" method="post">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="e.g. 021 555 0123">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Select a subject</option>
+                        <option value="general">General enquiry:</option>
+                        <option value="appointment">Book an appointment:</option>
+                        <option value="support">Support:</option>
+                        <option value="feedback">Feedback:</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit</button>
+                <p id="form-status" class="form-status" role="status"></p>
+            </form>
+        </section>
+
+
+        <section class="schedule-section">
+            <h2>Available Appointment Times</h2>
+            <p class="hint">Click a row to select a time slot.</p>
+            <div class="table-wrapper">
+                <table id="schedule">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Time</th>
+                            <th>Availability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Monday</td><td>09:00 – 10:00</td><td>Available</td></tr>
+                        <tr><td>Tuesday</td><td>11:00 – 12:00</td><td>Available</td></tr>
+                        <tr><td>Wednesday</td><td>14:00 – 15:00</td><td>Limited</td></tr>
+                        <tr><td>Thursday</td><td>10:00 – 11:00</td><td>Available</td></tr>
+                        <tr><td>Friday</td><td>13:00 – 14:00</td><td>Limited</td></tr>
+                        <tr><td>Saturday</td><td>09:00 – 11:00</td><td>Available</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+
+    <script>
+        // Click a schedule row to highlight it and pre-fill the form
+        const rows = document.querySelectorAll('#schedule tbody tr');
+        rows.forEach(row => {
+            row.addEventListener('click', () => {
+                rows.forEach(r => r.classList.remove('selected'));
+                row.classList.add('selected');
+                const cells = row.querySelectorAll('td');
+                document.getElementById('subject').value = 'appointment';
+                document.getElementById('message').value =
+                    'I would like to book an appointment on ' + cells[0].textContent +
+                    ' at ' + cells[1].textContent + '.';
+            });
+        });
+
+        // Simple submit feedback
+        document.getElementById('contact-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const status = document.getElementById('form-status');
+            status.textContent = 'Thank you! Your message has been sent.';
+            e.target.reset();
+            rows.forEach(r => r.classList.remove('selected'));
+        });
+    </script>
+
+
+
+</body>
+
+
+
+
+</html>
